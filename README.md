@@ -9,3 +9,5 @@ Real-time AI app needs real-time data to respond with the most up-to-date inform
 ## Example scenario
 
 User sets an alert for flight status changes. Pathway LLM App combines both structured and semi-structured data. The system continuously checks flight or policy updates from Kafka topics and if there is a flight change, it sends an alert to the end user using any messaging service. Asks the user to confirm new flight changes and also updates the booking entries in CosmosDB automatically or after confirmation to another flight so that the external booking app is aware of this change.
+
+![Azure Infra Architectural Diagram](./assets/azure-infra-architecture.png)
