@@ -1,0 +1,9 @@
+pathway
+llm_app
+unstructured[all-docs]==0.10.15
+requests
+datetime
+python-dotenv
+kafka
+streamlit
+azure-identity==1.15.0
