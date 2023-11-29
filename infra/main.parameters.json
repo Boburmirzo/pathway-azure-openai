@@ -56,17 +56,8 @@
     "allowedOrigin": {
       "value": "${ALLOWED_ORIGIN}"
     },
-    "confluentClusterEnpoint": {
-      "value": "${CONFLUENT_CLUSTER_ENDPOINT}"
-    },
-    "confluentKafkaUser": {
-      "value": "${CONFLUENT_KAFKA_USER}"
-    },
-    "confluentKafkaPass": {
-      "value": "${CONFLUENT_KAFKA_PASS}"
-    },
-    "confluentKafkaTopic": {
-      "value": "${CONFLUENT_KAFKA_TOPIC}"
+    "eventHubsNamespaceConnectionString": {
+      "value": "${EVENT_HUBS_NAMESPACE_CONNECTION_STRING}"
     }
   }
 }

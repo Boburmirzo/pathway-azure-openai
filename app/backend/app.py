@@ -19,25 +19,22 @@ api_version = '2023-05-15'
 model_locator = os.environ["AZURE_OPENAI_CHATGPT_DEPLOYMENT"]
 embedder_locator = os.environ["AZURE_OPENAI_EMB_DEPLOYMENT"]
 embedding_dimension = int(os.environ.get("EMBEDDING_DIMENSION", 1536))
-max_tokens = int(os.environ.get("AZURE_OPENAI_MAX_TOKENS", 300))
+max_tokens = int(os.environ.get("AZURE_OPENAI_MAX_TOKENS", 500))
 temperature = float(os.environ.get("AZURE_OPENAI_TEMPERATURE", 0.0))
 
 
-# Set Confluent credentials and topic (from Confluent client)
-kafka_endpoint = os.environ["CONFLUENT_CLUSTER_ENDPOINT"]
-kafka_user = os.environ["CONFLUENT_KAFKA_USER"]
-kafka_pass = os.environ["CONFLUENT_KAFKA_PASS"]
-kafka_topic = os.environ["CONFLUENT_KAFKA_TOPIC"]
+# Set Azure Event Hubs credentials
+event_hubs_connection_string = os.environ["EVENT_HUBS_NAMESPACE_CONNECTION_STRING"]
 
 # Define Kafka cluster settings
 rdkafka_settings = {
-    "bootstrap.servers": kafka_endpoint,
+    "bootstrap.servers": "eventhubpathwayns.servicebus.windows.net:9093",
     "security.protocol": "SASL_SSL",
     "sasl.mechanism": "PLAIN",
     "group.id": "$GROUP_NAME",
     "session.timeout.ms": "60000",
-    "sasl.username": kafka_user,
-    "sasl.password": kafka_pass,
+    "sasl.username": "$ConnectionString",
+    "sasl.password": event_hubs_connection_string,
     "enable.ssl.certificate.verification": "false"
 }
 
@@ -47,14 +44,10 @@ def run(
     host: str = "0.0.0.0",
     port: int = 8080
 ):
-    # azure_credential = DefaultAzureCredential()
-    # openai_token = azure_credential.get_token("https://cognitiveservices.azure.com/.default")
-    # api_key = openai_token.token
-
     # Real-time data coming from the Kafka topic
     topic_data = pw.io.kafka.read(
         rdkafka_settings,
-        topic=kafka_topic,
+        topic="eventhubpathway",
         format="raw",
         autocommit_duration_ms=1000,
     )
